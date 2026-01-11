@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>treeVisualizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">TreeVisualizer</div>
+        <div class="theme-toggle-wrapper">
+          <button id="theme-toggle-btn" title="Toggle dark/light theme">🌙</button>
+        </div>
+        <ul>
+          <li>
+            <a href="#" class="nav-link" data-target="visualization">Home</a>
+          </li>
+          <li><a href="#" class="nav-link" data-target="about">About</a></li>
+          <li>
+            <a href="#" class="nav-link" data-target="contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-content">
+        <h1>
+          WEB BASED VISUALIZATION OF BINARY TREES AND TRAVERSAL ALGORITHMS
+        </h1>
+        <p>An interactive tool for Binary, BST, and AVL Trees.</p>
+      </div>
+    </header>
+
+    <main id="visualization" class="page-section">
+      <div class="tree-type-container">
+        <button class="tree-type-btn active" data-tree-type="BT">
+          Binary Tree
+        </button>
+        <button class="tree-type-btn" data-tree-type="BST">
+          Binary Search Tree
+        </button>
+        <button class="tree-type-btn" data-tree-type="AVL">AVL Tree</button>
+      </div>
+
+      <div class="top-layout-container">
+        <div class="control-card operations-card">
+          <h3>Operations</h3>
+          <div class="input-group">
+            <input type="number" id="node-value" placeholder="Enter a number" />
+          </div>
+          <div class="button-group">
+            <button id="insert-btn">Insert</button>
+            <button id="delete-btn">Delete</button>
+            <button id="search-btn">Search</button>
+          </div>
+        </div>
+        <div class="info-stack">
+          <div class="info-box">
+            <p>Current Node Sequence:</p>
+            <div id="tree-state-output">Start by inserting a node!</div>
+          </div>
+          <div class="info-box">
+            <p>Tree Information:</p>
+            <div class="info-content">
+              <span>Node Count: <strong id="node-count">0</strong></span>
+              <span>Tree Height: <strong id="tree-height">0</strong></span>
+            </div>
+          </div>
+          <div class="info-box">
+            <p>Traversal Order:</p>
+            <div id="traversal-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tree-container-wrapper">
+        <div id="tree-container"></div>
+      </div>
+
+      <div class="bottom-controls-container">
+        <div class="control-card">
+          <h3>Traversal</h3>
+          <div class="button-group traversal-group">
+            <button id="inorder-btn">Inorder</button>
+            <button id="preorder-btn">Preorder</button>
+            <button id="postorder-btn">Postorder</button>
+            <button id="levelorder-btn">Level Order</button>
+          </div>
+        </div>
+        <div class="control-card">
+          <h3>Manage</h3>
+          <div class="speed-control">
+            <label for="speed-slider">Speed</label>
+            <input
+              type="range"
+              id="speed-slider"
+              min="100"
+              max="1000"
+              value="600"
+            />
+          </div>
+          <div class="button-group">
+            <button id="undo-btn">Undo</button>
+            <button id="redo-btn">Redo</button>
+            <button id="reset-btn">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="algorithm-section">
+        <div class="algorithm-card">
+          <button id="toggle-steps-btn" class="toggle-btn">
+            Algorithm Steps
+          </button>
+          <ol id="algorithm-steps"></ol>
+        </div>
+        <div class="explanation-card">
+          <button id="toggle-explanation-btn" class="toggle-btn">
+            Step Explanation
+          </button>
+          <div id="algorithm-explanation"></div>
+        </div>
+      </div>
+    </main>
+
+    <section id="about" class="page-section hidden">
+      <div class="page-content">
+        <h2>Understanding Tree Data Structures 🌳</h2>
+        <h3>1. Binary Tree (BT)</h3>
+        <p>
+          A <strong>Binary Tree</strong> is the most basic tree structure where
+          each node has at most two children, referred to as the
+          <em>left child</em> and the <em>right child</em>. There are no rules
+          about the order of nodes, so values can be placed anywhere. Insertion
+          is simple: we just find the first available spot. <br /><strong
+            >Example:</strong
+          >
+          A family tree can be a binary tree, where a person (node) has at most
+          two children.
+        </p>
+
+        <h3>2. Binary Search Tree (BST)</h3>
+        <p>
+          A <strong>Binary Search Tree</strong> is a special type of binary tree
+          with a key property: for any given node, all values in its left
+          subtree are less than the node's value, and all values in its right
+          subtree are greater. This ordering makes searching for a value highly
+          efficient, typically in O(log n) time on average. <br /><strong
+            >Example:</strong
+          >
+          If you insert 50, then 30, 30 goes to the left of 50. If you then
+          insert 70, it goes to the right of 50.
+        </p>
+
+        <h3>3. AVL Tree</h3>
+        <p>
+          An <strong>AVL Tree</strong> is a self-balancing Binary Search Tree.
+          It maintains the BST property but adds a constraint: the heights of
+          the two child subtrees of any node can differ by at most one. If an
+          insertion or deletion violates this rule, the tree automatically
+          rebalances itself using "rotations." This guarantees that operations
+          remain extremely fast (O(log n) in the worst case), preventing the
+          tree from becoming skewed. <br /><strong>Example:</strong> If you
+          insert 10, 20, and 30 in order into a BST, you get a straight line. An
+          AVL tree would rotate after inserting 30 to make 20 the root, with 10
+          as its left child and 30 as its right.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="page-section hidden">
+      <div class="page-content">
+        <h2>Contact Information</h2>
+        <div class="contact-card">
+          <p>
+            <strong>Project Team:</strong> PURVA TOKE / VAIBHAVI SONAR / TANVI
+            THAKARE / NEHA BHAMARE
+          </p>
+          <p>
+            <strong>College:</strong> R.C Patel College of Enginnering, Shirpur,
+            Maharashtra
+          </p>
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:contact@treeVisualizer.com"
+              >contact@treeVisualizer.com</a
+            >
+          </p>
+          <p><strong>Phone:</strong> +91 98765 43210</p>
+          <p>
+            This project was created for the 3rd Semester, sem-project by
+            Students of Information Technology.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer">
+      <p>&copy; 2025 TreeVisualizer | All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
